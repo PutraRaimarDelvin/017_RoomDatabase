@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">pertemuan9</string>
+
+        <string name="app_name">Pertemuan9</string>
+
+        <!-- Form -->
+        <string name="nama">Nama</string>
+        <string name="alamat">Alamat</string>
+        <string name="telepon">Telepon</string>
+        <string name="required_field">Wajib diisi</string>
+        <string name="btn_submit">Simpan</string>
+
+        <!-- Home -->
+        <string name="deskripsi_no_item">Belum ada data siswa.</string>
+
+        <!-- Navigasi -->
+        <string name="entry_siswa">Tambah Siswa</string>
+        <string name="back">Kembali</string>
+
 </resources>
