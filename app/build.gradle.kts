@@ -1,17 +1,18 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.compose) // Wajib di Kotlin 2.0+
+    alias(libs.plugins.ksp)           // Wajib untuk Room
 }
 
 android {
     namespace = "com.example.pertemuan9"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.pertemuan9"
-        minSdk = 26
-        targetSdk = 34
+        minSdk = 30
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -32,12 +33,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 
     buildFeatures {
@@ -45,7 +46,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
 
     packaging {
@@ -57,32 +58,47 @@ android {
 
 dependencies {
 
-    // --- Core ---
-    implementation(libs.androidx.core.ktx)
-
-    // --- Lifecycle ---
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-
-    // --- Activity Compose ---
-    implementation(libs.androidx.activity.compose)
-
-    // --- Compose BOM (WAJIB DI ATAS) ---
+    // ===============================
+    // Compose BOM
+    // ===============================
     implementation(platform(libs.androidx.compose.bom))
 
-    // --- Compose UI ---
+    // Core Compose
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.activity.compose)
 
-    // --- Testing ---
+    // Lifecycle & Navigation
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.lifecycle.runtime.compose)
+    implementation(libs.navigation.compose)
+
+    // ===============================
+    // Room Database
+    // ===============================
+    implementation(libs.bundles.room)
+    ksp(libs.room.compiler)
+
+    // ===============================
+    // Unit Testing
+    // ===============================
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+
+    // ===============================
+    // Instrumented Tests (Compose)
+    // ===============================
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 
-    // --- Debug Preview ---
+    // ===============================
+    // Debug
+    // ===============================
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
